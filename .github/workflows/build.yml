@@ -5,10 +5,11 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: ilammy/msvc-dev-cmd@v2
       - name: Build
         shell: cmd
-        run: cl /std:c++17 /EHsc splash.cpp /link user32.lib gdi32.lib msimg32.lib advapi32.lib winmm.lib shell32.lib /SUBSYSTEM:WINDOWS /OUT:splash.exe
+        run: |
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+          cl /std:c++17 /EHsc splash.cpp /link user32.lib gdi32.lib msimg32.lib advapi32.lib winmm.lib shell32.lib /SUBSYSTEM:WINDOWS /OUT:splash.exe
       - uses: actions/upload-artifact@v4
         with:
           name: splash
